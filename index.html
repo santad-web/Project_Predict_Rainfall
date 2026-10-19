@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ระบบพยากรณ์ปริมาณน้ำฝน — จังหวัดสงขลา</title>
+  <link rel="stylesheet" href="style.css?v=3">
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="header__brand">
+        <span class="header__icon" aria-hidden="true">🌦️</span>
+        <div>
+          <h1 class="header__title">ระบบพยากรณ์ปริมาณน้ำฝน</h1>
+          <p class="header__subtitle">Songkhla Rainfall Forecasting System</p>
+        </div>
+      </div>
+      <div class="header__meta">
+        <span class="header__updated" id="updated-time">อัปเดต: —</span>
+      </div>
+    </header>
+
+    <!-- Control Bar -->
+    <section class="controls">
+      <label class="controls__field">
+        <span class="controls__label">เลือกอำเภอ</span>
+        <select id="district-select" class="controls__select"></select>
+      </label>
+      <label class="controls__field">
+        <span class="controls__label">ช่วงเวลาพยากรณ์</span>
+        <select id="range-select" class="controls__select">
+          <option value="1">รายชั่วโมง (วันนี้)</option>
+          <option value="3">ล่วงหน้า 3 วัน</option>
+          <option value="7">ล่วงหน้า 7 วัน</option>
+        </select>
+      </label>
+    </section>
+
+    <!-- Summary Cards -->
+    <section class="cards">
+      <article class="card" id="card-temp">
+        <div class="card__head">
+          <span class="card__icon">🌡️</span>
+          <h3 class="card__title">อุณหภูมิ</h3>
+        </div>
+        <div class="card__value" id="val-temp">--</div>
+        <div class="card__foot" id="foot-temp">วันนี้</div>
+      </article>
+
+      <article class="card" id="card-rain">
+        <div class="card__head">
+          <span class="card__icon">🌧️</span>
+          <h3 class="card__title">ปริมาณน้ำฝน</h3>
+        </div>
+        <div class="card__value" id="val-rain">--</div>
+        <div class="card__foot" id="foot-rain">ตลอดช่วงเวลา</div>
+      </article>
+
+      <article class="card" id="card-prob">
+        <div class="card__head">
+          <span class="card__icon">💧</span>
+          <h3 class="card__title">ความน่าจะเป็นฝน</h3>
+        </div>
+        <div class="card__value" id="val-prob">--</div>
+        <div class="card__foot" id="foot-prob">เฉลี่ย</div>
+      </article>
+
+      <article class="card" id="card-status">
+        <div class="card__head">
+          <span class="card__icon">⚠️</span>
+          <h3 class="card__title">สถานะเตือนภัย</h3>
+        </div>
+        <div class="card__value level-normal" id="val-status">กำลังโหลด…</div>
+        <div class="card__foot" id="foot-status">—</div>
+      </article>
+    </section>
+
+    <!-- Trend Chart -->
+    <section class="panel">
+      <h2 class="panel__title">แนวโน้มปริมาณน้ำฝน (Rainfall Trend)</h2>
+      <div class="chart-wrap">
+        <canvas id="rain-chart"></canvas>
+      </div>
+    </section>
+
+    <!-- Data Table -->
+    <section class="panel">
+      <h2 class="panel__title">ตารางข้อมูล</h2>
+      <div class="table-wrap">
+        <table class="table" id="data-table">
+          <thead>
+            <tr>
+              <th>เวลา</th>
+              <th>สภาพ</th>
+              <th>อุณหภูมิ (°C)</th>
+              <th>น้ำฝน (mm)</th>
+              <th>ความน่าจะเป็น (%)</th>
+              <th>ระดับความเสี่ยง</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Status / Error Banner -->
+    <div class="banner" id="banner" hidden></div>
+
+    <footer class="footer">
+      ข้อมูลสภาพอากาศโดย <a href="https://open-meteo.com" target="_blank" rel="noopener">Open-Meteo</a> · กราฟโดย Chart.js
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="app.js?v=3"></script>
+</body>
+</html>

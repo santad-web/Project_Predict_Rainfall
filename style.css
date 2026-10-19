@@ -1,0 +1,182 @@
+﻿/* =========================================================
+   Songkhla Rainfall Forecasting System — style.css
+   ธีมฟ้า/น้ำเงิน/เทา · responsive (mobile-first)
+   ========================================================= */
+
+:root {
+  /* โทนหลัก ฟ้า / น้ำเงิน / เทา */
+  --bg-1: #0f2136;
+  --bg-2: #16324c;
+  --surface: rgba(255, 255, 255, 0.06);
+  --surface-border: rgba(255, 255, 255, 0.12);
+  --text: #eaf2fb;
+  --text-dim: #9db3c8;
+  --accent: #38bdf8;      /* ฟ้า */
+  --accent-2: #3b82f6;    /* น้ำเงิน */
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+
+  /* สีสถานะเตือนภัย */
+  --normal: #34d399;      /* เขียว */
+  --watch: #fbbf24;       /* เหลือง/ส้ม */
+  --warning: #f87171;     /* แดง */
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Segoe UI", "Sukhumvit Set", Tahoma, sans-serif;
+  color: var(--text);
+  /* ภาพฝน (Unsplash) + overlay ให้สีเข้มและอ่านชัด + fallback gradient */
+  background:
+    linear-gradient(rgba(10, 22, 38, 0.72), rgba(10, 22, 38, 0.82)),
+    radial-gradient(1200px 600px at 80% -10%, rgba(22, 50, 76, 0.5), transparent 60%),
+    url("https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=1920&q=60&auto=format&fit=crop")
+      center / cover no-repeat fixed,
+    var(--bg-1);
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+.app {
+  max-width: 100%;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 24px clamp(16px, 4vw, 60px) 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-sizing: border-box;
+}
+
+/* ---------- Header ---------- */
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 16px;
+  padding: 18px 20px;
+  box-shadow: var(--shadow);
+}
+.header__brand { display: flex; align-items: center; gap: 14px; }
+.header__icon { font-size: 2.2rem; }
+.header__title { font-size: 1.35rem; font-weight: 700; letter-spacing: .3px; }
+.header__subtitle { font-size: .85rem; color: var(--text-dim); }
+.header__updated { font-size: .85rem; color: var(--text-dim); }
+
+/* ---------- Control Bar ---------- */
+.controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.controls__field { display: flex; flex-direction: column; gap: 6px; }
+.controls__label { font-size: .85rem; color: var(--text-dim); font-weight: 600; }
+.controls__select {
+  appearance: none;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--surface-border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: .95rem;
+  cursor: pointer;
+}
+.controls__select:focus { outline: 2px solid var(--accent); }
+
+/* ---------- Summary Cards ---------- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+.card__head { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.card__icon { font-size: 1.4rem; }
+.card__title { font-size: .9rem; color: var(--text-dim); font-weight: 600; }
+.card__value { font-size: 1.8rem; font-weight: 700; }
+.card__foot { font-size: .8rem; color: var(--text-dim); margin-top: 6px; }
+
+/* สีสถานะเตือนภัย */
+.level-normal  { color: var(--normal); }
+.level-watch   { color: var(--watch); }
+.level-warning { color: var(--warning); }
+
+/* ---------- Panels (chart + table) ---------- */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+.panel__title { font-size: 1.05rem; font-weight: 700; margin-bottom: 14px; }
+.chart-wrap { position: relative; height: 320px; }
+
+/* ---------- Data Table ---------- */
+.table-wrap { overflow-x: auto; }
+.table { width: 100%; border-collapse: collapse; font-size: .9rem; min-width: 560px; }
+.table th, .table td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--surface-border);
+  white-space: nowrap;
+}
+.table th { color: var(--text-dim); font-weight: 600; }
+.table tbody tr:hover { background: rgba(56, 189, 248, 0.08); }
+
+/* Badge สำหรับระดับความเสี่ยงในตาราง */
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: .78rem;
+  font-weight: 700;
+  color: #0a1626;
+}
+.badge.normal  { background: var(--normal); }
+.badge.watch   { background: var(--watch); }
+.badge.warning { background: var(--warning); }
+
+/* ---------- Banner (error/info) ---------- */
+.banner {
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: .9rem;
+  border: 1px solid var(--surface-border);
+}
+.banner--error { background: rgba(248, 113, 113, 0.15); border-color: var(--warning); }
+.banner--info  { background: rgba(56, 189, 248, 0.12); border-color: var(--accent); }
+
+/* ---------- Loading ---------- */
+.loading {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 120px; color: var(--text-dim); font-size: .95rem;
+}
+
+/* ---------- Footer ---------- */
+.footer { text-align: center; font-size: .8rem; color: var(--text-dim); }
+.footer a { color: var(--accent); text-decoration: none; }
+
+/* ---------- Responsive ---------- */
+@media (min-width: 720px) {
+  .cards { grid-template-columns: repeat(4, 1fr); }
+  .header__title { font-size: 1.6rem; }
+  .chart-wrap { height: 380px; }
+}
+@media (max-width: 480px) {
+  .controls { grid-template-columns: 1fr; }
+  .cards { grid-template-columns: 1fr; }
+  .card__value { font-size: 1.5rem; }
+  .chart-wrap { height: 260px; }
+}
